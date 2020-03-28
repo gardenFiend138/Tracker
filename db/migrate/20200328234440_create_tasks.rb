@@ -3,7 +3,7 @@ class CreateTasks < ActiveRecord::Migration[6.0]
     create_table :tasks do |t|
       t.string :title
       t.boolean :is_complete
-      t.foreign_key :user_id
+      t.integer :user_id, foreign_key: true
 
       t.timestamps
     end
