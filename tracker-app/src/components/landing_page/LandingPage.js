@@ -1,7 +1,7 @@
 import React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
-import ClickableListItem from './user/ClickableListItem';
+import ClickableListItemLink from './user/ClickableListItemLink';
 import Input from '../common/Input';
 import NewUserForm from './user/NewUserForm';
 
@@ -27,7 +27,7 @@ function LandingPage() {
   }, [users]);
 
   const onSelectUser = useCallback((id) => () => {
-    console.log('id is: ', id);
+
   }, []);
 
   const handleUserSearch = useCallback(({target: {value}}) => {
@@ -57,10 +57,10 @@ function LandingPage() {
           value={query || ''}
         />
         {filteredUsers.map(({id, name}) => (
-          <ClickableListItem
+          <ClickableListItemLink
             key={id}
-            onClick={onSelectUser(id)}
             item={name}
+            path={`/users/tasks/${id}`}
           />
         ))}
         <NewUserForm onSuccess={updateUsers} />
