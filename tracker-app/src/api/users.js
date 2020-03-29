@@ -11,4 +11,16 @@ function fetchAllUsers() {
   });
 }
 
-export {fetchAllUsers};
+function createUser({name, email, phoneNumber}) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      method: 'POST',
+      url: '/api/v1/users',
+      data: {user: {name, email, phone_number: phoneNumber}},
+      success: data => resolve(data),
+      error: data => reject(data),
+    })
+  });
+}
+
+export {createUser, fetchAllUsers};

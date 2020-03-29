@@ -2,6 +2,8 @@ import React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 
 import ClickableListItem from './user/ClickableListItem';
+import Input from '../common/Input';
+import NewUserForm from './user/NewUserForm';
 
 import {fetchAllUsers} from '../../api/users';
 
@@ -34,6 +36,13 @@ function LandingPage() {
     setQuery(value);
   }, [users]);
 
+  const updateUsers = useCallback((user) => {
+    const newUsers = [user].concat(users);
+    setUsers(newUsers);
+    setFilteredUsers(newUsers);
+    setQuery('');
+  }, [users]);
+
   if (error !== null) {
     return `Error: ${error.message}`;
   } else if (users === null) {
@@ -41,14 +50,12 @@ function LandingPage() {
   } else {
     return (
       <div>
-        <label>
-          Select User
-          <input
-            onChange={handleUserSearch}
-            type="search"
-            value={query || ''}
-          />
-        </label>
+        <Input
+          onChange={handleUserSearch}
+          label="Select User"
+          type="search"
+          value={query || ''}
+        />
         {filteredUsers.map(({id, name}) => (
           <ClickableListItem
             key={id}
@@ -56,6 +63,7 @@ function LandingPage() {
             item={name}
           />
         ))}
+        <NewUserForm onSuccess={updateUsers} />
       </div>
     );
   }
