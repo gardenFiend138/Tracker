@@ -78,7 +78,7 @@ function NewUserForm({onSuccess}) {
         onClick={handleSubmit}
         text="Create New User"
       />
-  </div>
+    </div>
   );
 }
 
